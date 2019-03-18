@@ -177,6 +177,16 @@ class MapboxMapController extends ChangeNotifier {
     });
   }
 
+  Future<void> addSymbolImage(String symbolId, String bitmapData) async {
+    await _channel.invokeMethod(
+      'symbol#addImage',
+      <String, dynamic>{
+        'symbolId': symbolId,
+        'bitmap': bitmapData,
+      },
+    );
+  }
+
   /// Adds a symbol to the map, configured using the specified custom [options].
   ///
   /// Change listeners are notified once the symbol has been added on the

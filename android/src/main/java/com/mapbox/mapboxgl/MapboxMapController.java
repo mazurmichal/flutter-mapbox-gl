@@ -102,6 +102,7 @@ final class MapboxMapController
   private final Context context;
   private final String styleStringInitial;
   private LocationComponent locationComponent = null;
+  private Style mapStyle;
 
   MapboxMapController(
     int id,
@@ -267,6 +268,8 @@ final class MapboxMapController
       enableLineManager(style);
       enableSymbolManager(style);
       enableLocationComponent(style);
+
+      mapStyle = style;
       // needs to be placed after SymbolManager#addClickListener,
       // is fixed with 0.6.0 of annotations plugin
       mapboxMap.addOnMapClickListener(MapboxMapController.this);
@@ -370,6 +373,15 @@ final class MapboxMapController
         }
         reply.put("features", featuresJson);
         result.success(reply);
+        break;
+      }
+      case "symbol#addImage": {
+        final String symbolId = call.argument("symbolId");
+        final String bitmapData = call.argument("bitmapData");
+        byte[] imageAsBytes = Base64.decode(bitmapData);
+        final Bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        mapStyle.addImage(symbolId, bitmap);
+        result.success(null);
         break;
       }
       case "symbol#add": {
