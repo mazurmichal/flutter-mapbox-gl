@@ -182,7 +182,7 @@ class MapboxMapController extends ChangeNotifier {
       'symbol#addImage',
       <String, dynamic>{
         'symbolId': symbolId,
-        'bitmap': bitmapData,
+        'bitmapData': bitmapData,
       },
     );
   }
