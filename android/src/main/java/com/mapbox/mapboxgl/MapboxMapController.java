@@ -17,8 +17,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.graphics.PointF;
@@ -378,7 +382,7 @@ final class MapboxMapController
       case "symbol#addImage": {
         final String symbolId = call.argument("symbolId");
         final String bitmapData = call.argument("bitmapData");
-        byte[] imageAsBytes = Base64.decode(bitmapData);
+        byte[] imageAsBytes = Base64.decode(bitmapData, Base64.DEFAULT);
         final Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
         mapStyle.addImage(symbolId, bitmap);
         result.success(null);
