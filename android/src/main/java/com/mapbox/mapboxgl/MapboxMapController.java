@@ -382,9 +382,18 @@ final class MapboxMapController
       case "symbol#addImage": {
         final String symbolId = call.argument("symbolId");
         final String bitmapData = call.argument("bitmapData");
+
+        Log.e(TAG, "addImage - symbolId: " + symbolId + ", bitmapData: " + bitmapData);
+
         byte[] imageAsBytes = Base64.decode(bitmapData, Base64.DEFAULT);
         final Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-        mapStyle.addImage(symbolId, bitmap);
+        if (bitmap == null) {
+          Log.e(TAG, "addImage - Could not decode bitmap");
+          result.error("Bitmap cannot be null", null, null);
+        }
+        else {
+          mapStyle.addImage(symbolId, bitmap);
+        }
         result.success(null);
         break;
       }
