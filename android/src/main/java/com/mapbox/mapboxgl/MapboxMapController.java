@@ -379,7 +379,7 @@ final class MapboxMapController
         final String symbolId = call.argument("symbolId");
         final String bitmapData = call.argument("bitmapData");
         byte[] imageAsBytes = Base64.decode(bitmapData);
-        final Bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        final Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
         mapStyle.addImage(symbolId, bitmap);
         result.success(null);
         break;
