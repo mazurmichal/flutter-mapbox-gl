@@ -177,7 +177,7 @@ class MapboxMapController extends ChangeNotifier {
     });
   }
 
-  Future<void> addSymbolImage(String symbolId, String bitmapData) async {
+  Future<void> addSymbolImage(String symbolId, Uint8List bitmapData) async {
     await _channel.invokeMethod(
       'symbol#addImage',
       <String, dynamic>{
