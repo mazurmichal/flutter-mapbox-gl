@@ -383,14 +383,16 @@ final class MapboxMapController
         final String symbolId = call.argument("symbolId");
         final byte[] bitmapData = call.argument("bitmapData");
 
-        Log.e(TAG, "addImage - symbolId: " + symbolId);
+        Log.e(TAG, "addImage - symbolId: " + symbolId + ", bytes: " + bitmapData.length);
 
         final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
         if (bitmap == null) {
           Log.e(TAG, "addImage - Could not decode bitmap");
           result.error("Bitmap cannot be null", "", "");
+          break;
         }
         else {
+          Log.e(TAG, "addImage - adding image");
           mapStyle.addImage(symbolId, bitmap);
         }
         result.success(null);
